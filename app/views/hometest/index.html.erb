@@ -1,0 +1,114 @@
+
+  
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&signed_in=true&libraries=places"></script>
+<!--     // <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&libraries=geometry,places&sensor=true&language=en"></script> -->
+    <style>
+      #map-canvas {
+        height: 400px;
+        width:700px;
+      }
+    </style>
+    <script>   
+var map;
+var service;
+var marker;
+var pos;
+var infowindow;
+
+function initialize() 
+{
+  console.log("Loading this map")
+
+    var mapOptions = {
+     zoom: 16,
+     mapTypeId: google.maps.MapTypeId.ROADMAP,
+     scrollwheel: false,
+     panControl: false,
+     streetViewControl: false,
+     mapTypeControl: false,
+     };
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    //HTML5 geolocation
+    if (navigator.geolocation) 
+    {
+       navigator.geolocation.getCurrentPosition(function(position) 
+       {
+            pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+            infowindow = new google.maps.InfoWindow({map: map,position: pos,content: 'You Are Here'});
+
+            var request = {location:pos,radius:500,types: ['Transportation','Clubs']
+            };
+
+            map.setCenter(pos);
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request,callback);
+
+        }, 
+
+        function() 
+        { 
+        handleNoGeolocation(true);
+        });
+    } 
+    else 
+    {
+    handleNoGeolocation(false);
+    }
+
+    function callback(results, status) 
+    {
+      if (status == google.maps.places.PlacesServiceStatus.OK) 
+      {
+        for (var i = 0; i < results.length; i++) 
+        {
+          createMarker(results[i]);
+        }
+      }
+    }
+
+    function createMarker(place) 
+    {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+    google.maps.event.addListener(marker, 'click', function() 
+    {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+    });
+
+}
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+  </head>
+  <body>
+    <div class= "container">
+      <p id="intro-page">Click the button to get your position.</p>
+      <a class="green ligthen-4 waves-effect waves-light btn" onclick="initialize()"><i class="material-icons right">language</i>
+        Get your Location!
+      </a>
+    </div>
+    <br><br>
+      
+    <div class = "valign-wrapper container">
+      <div id="map-canvas"> </div>
+    </div>
+    
+  </body>
+</html>
