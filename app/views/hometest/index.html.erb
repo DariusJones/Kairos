@@ -7,7 +7,8 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="utf-8">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&signed_in=true&libraries=places"></script>
+   <!--  // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&signed_in=true&libraries=places"></script> -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&libraries=places"></script>
 <!--     // <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCH04YFBXlqppNGD3F1PXGzUE-ecCxpMok&libraries=geometry,places&sensor=true&language=en"></script> -->
     <style>
       #map-canvas {
@@ -54,6 +55,7 @@ var marker;
 var pos;
 var infowindow;
 
+
 function initialize() 
 {
   console.log("Loading this map")
@@ -78,14 +80,14 @@ function initialize()
 
             infowindow = new google.maps.InfoWindow({map: map,position: pos,content: 'You Are Here'});
 
-            var request = {location:pos,radius:400, open_now:true,types: ["food,restaurants"]
+            var request = {location:pos,radius:800,openNow:true,query: ['food'],types:['food','restaurant','bar']
             };
 
             map.setCenter(pos);
 
             infowindow = new google.maps.InfoWindow();
             var service = new google.maps.places.PlacesService(map);
-            service.nearbySearch(request,callback);
+            service.textSearch(request,callback);
 
         }, 
 
@@ -106,7 +108,7 @@ function initialize()
 
         for (var i = 0; i < results.length; i++) 
         {
-          console.log("ghlkjelk");
+          console.log("This creates the Markers");
           createMarker(results[i]);
         }
       }
@@ -151,7 +153,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <div class="card-panel hoverable">
       <h3>Welcome to Kairos</h3>
       
-      <p>Are you up while most businesses may be closed? This application intends to assist you in finding the nearest open food regardless of the time of day. Gone are the days of  worrying about what is open at 3am on a friday night. Kairos is here to help! To begin just allow the application to check your location and you are done!</p>
+      <p>Are you up while most businesses may be closed? This application intends to assist you in finding the nearest open food location regardless of the time of day. Gone are the days of worrying about what is open at 3am on a friday night. Kairos is here to help! Using Kairos is simply. Just allow the application to check your location and you are done! The top open restaurants around you appear on the map.</p>
       <br>
       <div class="container">
       <div class ="row">
@@ -171,7 +173,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       </div>
 
       <div>
-    <h5 class="center-align">Click the button to return to your original position</h5>
+    <!-- <h5 class="center-align">Click the button to return to your original position</h5> -->
       </div>
       <br>
       <div class= "center-align">
@@ -192,7 +194,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <br>
     <div class = "container">
       <div class="card-panel hoverable">
-      <p>The results yield the top places within a quarter mile of your current location.</p>
+      <p>The results yield the top places within a half mile of your current location.</p>
       </div>
     </div>
 
