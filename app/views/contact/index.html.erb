@@ -25,10 +25,12 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: #F0F8FF;
       }
       #map {
         height:500px;
         width:965px;
+        clear:both;
       }
     </style>
 
@@ -41,33 +43,38 @@
 
       }*/
       #listing {
-        border:blue 1px solid;
-        width: 200px;
+        /*border:red solid 1px;*/
+        width: 265px;
         height: 470px;
         overflow: auto;
-        position:absolute;
-        left: 1220px;
-        top: 170px;
+        /*position:relative;*/
+        left:1343px;
+        margin-left: auto;
+        /*left: 1343px;*/
+        top: 370px;
         cursor: pointer;
         overflow-x: hidden;
       }
       #findhotels {
-        border:green solid 1px;
-        text-align: right;
+        border:none;
+        text-align: left;
         width: 100px;
         font-size: 14px;
+        margin:none;
         padding: 4px;
-        position:absolute;
         z-index: 5;
         background-color: #fff;
       }
       #locationField {
-        border:red solid 2px;
-        width: 190px;
-        height: 25px;
-        left: 108px;
-        top: 100px;
-        position:absolute;
+        border:none;
+        width: 290px;
+        /*height: 25px;*/
+        left: 0px;
+        text-align: center;
+        right: 200px;
+        top: 0px;
+        position:relative;
+        /*float:left;*/
         z-index: 5;
         background-color: #fff;
       }
@@ -82,9 +89,9 @@
       #autocomplete {
         width: 100%;
       }
-      #country {
+/*      #country {
         width: 100%;
-      }
+      }*/
       .placeIcon {
         width: 20px;
         height: 34px;
@@ -112,17 +119,27 @@
       .iw_table_icon {
         text-align: right;
       }
+      h3{
+        text-align: center;
+      }
     </style>
   </head>
 
   <body>
+    <div class="container">
+      <div class="card-panel hoverable">
+        <h3>Location Search</h3>
+        <p>Here you can search for more specific locations.</p>
 
-    <div id="findhotels">
-      Find Food in:
-    </div>
 
-    <div id="locationField">
-      <input id="autocomplete" placeholder="Enter a city" type="text" />
+<!--         <div id="findhotels">
+          Find Food in: ________________________________________
+        </div> -->
+
+        <div id="locationField">
+          <input id="autocomplete" placeholder="Enter a city" type="text" />
+        </div>
+      </div>
     </div>
 
     <div id="controls">
@@ -143,18 +160,18 @@
         <option value="uk">United Kingdom</option>
       </select>
     </div>
-    <div class = "valign-wrapper container">
+    <div class = " valign-wrapper container">
       <div class = "card-panel hoverable">
         <div id="map"></div>
-      </div>
     </div>
-    	
-  <div class = "center-align">
-    <div id="listing">
-      <table id="resultsTable">
-        <tbody id="results"></tbody>
-      </table>
+    <div class = "container"> 
+        <div id="listing" class = "card-panel hoverable">
+          <table id="resultsTable">
+            <tbody id="results"></tbody>
+          </table>
+        </div>
     </div>
+
   </div>
 
     <div style="display: none">
@@ -289,14 +306,14 @@ function onPlaceChanged() {
   var place = autocomplete.getPlace();
   if (place.geometry) {
     map.panTo(place.geometry.location);
-    map.setZoom(15);
+    map.setZoom(17);
     search();
   } else {
     document.getElementById('autocomplete').placeholder = 'Enter a city';
   }
 }
 
-// Search for hotels in the selected city, within the viewport of the map.
+// Search for food in the selected city, within the viewport of the map.
 function search() {
   var search = {
     bounds: map.getBounds(),
@@ -307,7 +324,7 @@ function search() {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       clearResults();
       clearMarkers();
-      // Create a marker for each hotel found, and
+      // Create a marker for each food place found, and
       // assign a letter of the alphabetic to each marker icon.
       for (var i = 0; i < results.length; i++) {
         var markerLetter = String.fromCharCode('A'.charCodeAt(0) + i);
@@ -318,7 +335,7 @@ function search() {
           animation: google.maps.Animation.DROP,
           icon: markerIcon
         });
-        // If the user clicks a hotel marker, show the details of that hotel
+        // If the user clicks a marker, show the details of that food place
         // in an info window.
         markers[i].placeResult = results[i];
         google.maps.event.addListener(markers[i], 'click', showInfoWindow);
