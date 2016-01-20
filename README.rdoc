@@ -5,8 +5,8 @@ Kairos is designed to quickly locate open food restaurants nearby your current l
 
 
 
-This app is currently running from `localhost:3000`.
-The ruby version is: `ruby 2.1.5p273`.
+This app is currently running from ``localhost:3000``.
+The ruby version is: ``ruby 2.1.5p273``.
 
 ##To get running
 
