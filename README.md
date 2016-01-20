@@ -12,6 +12,11 @@ The ruby version is: ``ruby 2.1.5p273``.
 
 2. Next change into the directory by using `cd Kairos`.
 
-3. While in directory start the  server which is localhost:3000 by typing `rails s` in the terminal.
+3. While in directory you need to start the server localhost:3000 server. This is done by typing `rails s` in the terminal.
 
 4. Go to `localhost:3000` in your chrome browser. 
+
+Check it out on Heroku: https://whispering-shelf-1892.herokuapp.com/
+
+
+
