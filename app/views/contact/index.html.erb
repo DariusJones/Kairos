@@ -203,8 +203,8 @@
 
     <script>
 // This example uses the autocomplete feature of the Google Places API.
-// It allows the user to find all hotels in a given place, within a given
-// country. It then displays markers for all the hotels returned,
+// It allows the user to find all Food in a given place, within a given
+// country. It then displays markers for all the Food returned,
 // with on-click details for each hotel.
 
 var map, places, infoWindow;
@@ -317,7 +317,8 @@ function onPlaceChanged() {
 function search() {
   var search = {
     bounds: map.getBounds(),
-    types: ['food']
+    types: ['food','restaurant','bar'],
+    openNow:true
   };
 
   places.nearbySearch(search, function(results, status) {
