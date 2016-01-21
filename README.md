@@ -16,7 +16,7 @@ The ruby version is: ``ruby 2.1.5p273``.
 
 4. Go to `localhost:3000` in your chrome browser. 
 
-Check it out on Heroku: https://whispering-shelf-1892.herokuapp.com/
+Check it out on Heroku: https://kairos-jones.herokuapp.com/
 
 
 
